@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,9 +25,17 @@ namespace BankLibrary
             Balance += amount;
         }
         public virtual void Withdraw(decimal amount)
-            {
-            if (amount < 0) { throw new ArgumentException("Withdraw amount must be positive"); }
-            if (amount > Balance) {  throw new InvalidOperationException("Insufficient funds")})
+        {
+            if (amount < 0) { throw new ArgumentException("Withdraw amount must be positive"); } 
+                if (amount > Balance) { throw new InvalidOperationException("Insufficient funds"); } 
             Balance -= amount;
+        } 
+        public static List<Account> Accounts { get; private set; } 
+    public static void GenerateTestAccounts()
+        {
+            Accounts = new List<Account>();
+            Accounts.Add(new SavingsAccount("1001", "Alice", 2000, 0.04m)); 
+            Accounts.Add(new SavingsAccount("1002", "Bob", 1000, 0.03m)); 
+        }
     }
 }
